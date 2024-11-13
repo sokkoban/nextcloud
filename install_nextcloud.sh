@@ -101,8 +101,8 @@ EOF'
 
     # Download and set up Nextcloud
     echo "Downloading and configuring Nextcloud..." | tee -a install.log
-    wget https://download.nextcloud.com/server/releases/nextcloud-24.0.1.zip -P /tmp || { echo "Failed to download Nextcloud" | tee -a install.log; exit 1; }
-    sudo unzip /tmp/nextcloud-24.0.1.zip -d /var/www/
+    wget https://download.nextcloud.com/server/releases/latest.zip -P /tmp || { echo "Failed to download Nextcloud" | tee -a install.log; exit 1; }
+    sudo unzip /tmp/latest.zip -d /var/www/
     sudo chown -R www-data:www-data /var/www/nextcloud
     sudo chmod -R 755 /var/www/nextcloud
 
