@@ -69,4 +69,4 @@ This script automates the installation and configuration of Nextcloud on an Ubun
 - For MariaDB issues, ensure the database and user are created correctly.
 - Verify firewall rules if you have connectivity issues.
 
-For any questions or support, contact [support@zeroping.sh](mailto:support@zeroping.sh).
+#############################################################
