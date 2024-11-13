@@ -26,7 +26,7 @@ This script automates the installation and configuration of Nextcloud on an Ubun
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/sokkoban/nextcloud/nextcloud.git
+   git clone https://github.com/sokkoban/nextcloud.git
    ```
 
 2. **Navigate to the script directory:**
