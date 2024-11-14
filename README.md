@@ -48,8 +48,8 @@ This script automates the installation and configuration of Nextcloud on an Ubun
    - Enter the MariaDB username and password.
    - Enter the subdomain for your Nextcloud instance.
 
-6. **Optional SSL Installation:**
-   - If you choose not to install SSL during the initial setup, you can run the script again to add SSL later.
+6. ** SSL Installation:**
+   - You need to have FQDN or subdomain
 
 ## Script Details
 
