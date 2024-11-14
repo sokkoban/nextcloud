@@ -1,7 +1,7 @@
 <div class="markdown-heading" dir="auto">
 <h1 class="heading-element" dir="auto" tabindex="-1">Nextcloud Installation Script</h1>
 <a id="user-content-nextcloud-installation-script" class="anchor" href="https://github.com/sokkoban/nextcloud/blob/main/README.md#nextcloud-installation-script" aria-label="Permalink: Nextcloud Installation Script"></a></div>
-<p dir="auto">This script automates the installation and configuration of Nextcloud on an Ubuntu 22.04 server. It includes the setup of Apache, MariaDB, PHP 8.1, Redis, and Opcache. Additionally, it offers the option to install SSL certificates using Certbot.</p>
+<p dir="auto">This script automates the installation and configuration of Nextcloud on an Ubuntu 22.04, 24.04 server. It includes the setup of Apache, MariaDB, PHP 8.3, Redis, and Opcache. It offers the option to install SSL certificates using Certbot.</p>
 <div class="markdown-heading" dir="auto">
 <h2 class="heading-element" dir="auto" tabindex="-1">Author</h2>
 <a id="user-content-author" class="anchor" href="https://github.com/sokkoban/nextcloud/blob/main/README.md#author" aria-label="Permalink: Author"></a></div>
@@ -15,7 +15,7 @@
 <a id="user-content-features" class="anchor" href="https://github.com/sokkoban/nextcloud/blob/main/README.md#features" aria-label="Permalink: Features"></a></div>
 <ul dir="auto">
 <li>Automated installation of Nextcloud and necessary dependencies.</li>
-<li>Configuration of MariaDB, PHP 8.1, Redis, and Opcache.</li>
+<li>Configuration of MariaDB, PHP 8.3, Redis, and Opcache.</li>
 <li>Option to install SSL certificates using Certbot.</li>
 <li>Detection of existing Nextcloud installation and option to add SSL later..</li>
 </ul>
@@ -23,7 +23,7 @@
 <h2 class="heading-element" dir="auto" tabindex="-1">Prerequisites</h2>
 <a id="user-content-prerequisites" class="anchor" href="https://github.com/sokkoban/nextcloud/blob/main/README.md#prerequisites" aria-label="Permalink: Prerequisites"></a></div>
 <ul dir="auto">
-<li>A fresh Ubuntu 22.04 server installation.</li>
+<li>A fresh Ubuntu 22.04, 24.04 server installation.</li>
 <li>Root or sudo access to the server.</li>
 </ul>
 <div class="markdown-heading" dir="auto">
@@ -33,24 +33,24 @@
 <li>
 <p dir="auto"><strong>Clone the repository:</strong></p>
 <div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto">
-<pre>git clone https://github.com/sokkoban/nextcloud.git</pre>
+<pre><code>git clone https://github.com/sokkoban/nextcloud.git</code></pre>
 <div class="zeroclipboard-container">&nbsp;</div>
 </div>
 </li>
 </ul>
 <p dir="auto"><strong>Navigate to the script directory:</strong></p>
 <div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto">
-<pre><span class="pl-c1">cd</span> nextcloud</pre>
+<pre><code><span class="pl-c1">cd</span> nextcloud</code></pre>
 <div class="zeroclipboard-container">&nbsp;</div>
 </div>
 <p dir="auto"><strong>Make the script executable:</strong></p>
 <div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto">
-<pre>chmod +x install_nextcloud.sh</pre>
+<pre><code>chmod +x install_nextcloud.sh</code></pre>
 <div class="zeroclipboard-container">&nbsp;</div>
 </div>
 <p dir="auto"><strong>Run the script:</strong></p>
 <div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto">
-<pre>sudo ./install_nextcloud.sh</pre>
+<pre><code>sudo ./install_nextcloud.sh</code></pre>
 <div class="zeroclipboard-container">&nbsp;</div>
 </div>
 <ol dir="auto">
