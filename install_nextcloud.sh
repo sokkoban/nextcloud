@@ -146,14 +146,14 @@ EOF"
     sudo -u www-data php /var/www/nextcloud/occ config:system:set trusted_domains 0 --value=${SUBDOMAIN}
 
     echo "Nextcloud installation completed successfully!" | tee -a install.log
-}
 
-# Display admin login info at the end of the installation
-echo -e "\033[0;31m============================================\033[0m" | tee -a install.log
-echo -e "\033[0;31mAdmin Login Information:\033[0m" | tee -a install.log
-echo -e "\033[0;31mUsername: admin\033[0m" | tee -a install.log
-echo -e "\033[0;31mPassword: admin-password\033[0m" | tee -a install.log
-echo -e "\033[0;31m============================================\033[0m" | tee -a install.log
+   # Display admin login info at the end of the installation
+    echo -e "\033[0;31m============================================\033[0m" | tee -a install.log
+    echo -e "\033[0;31mAdmin Login Information:\033[0m" | tee -a install.log
+    echo -e "\033[0;31mUsername: admin\033[0m" | tee -a install.log
+    echo -e "\033[0;31mPassword: admin-password\033[0m" | tee -a install.log
+    echo -e "\033[0;31m============================================\033[0m" | tee -a install.log 
+}
 
 # Run the script functions
 get_user_input
