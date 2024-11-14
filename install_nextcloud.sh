@@ -1,5 +1,3 @@
-#!/bin/bash
-
 ############################################################
 #                          Nextcloud Installation           #
 #                          Author: Kristian Gasic           #
@@ -46,8 +44,8 @@ install_nextcloud() {
     sudo add-apt-repository ppa:ondrej/php -y || { echo "Failed to add PHP repository" | tee -a install.log; exit 1; }
     sudo apt update || { echo "Failed to update package list after adding PHP repository" | tee -a install.log; exit 1; }
 
-    echo "Installing PHP and required modules..." | tee -a install.log
-    sudo apt install php8.1 libapache2-mod-php8.1 php8.1-gd php8.1-mysql php8.1-curl php8.1-mbstring php8.1-intl php8.1-imagick php8.1-xml php8.1-zip php8.1-opcache php8.1-redis redis-server -y || { echo "Failed to install PHP packages" | tee -a install.log; exit 1; }
+    echo "Installing PHP 8.3 and required modules..." | tee -a install.log
+    sudo apt install php8.3 libapache2-mod-php8.3 php8.3-gd php8.3-mysql php8.3-curl php8.3-mbstring php8.3-intl php8.3-imagick php8.3-xml php8.3-zip php8.3-opcache php8.3-redis redis-server -y || { echo "Failed to install PHP packages" | tee -a install.log; exit 1; }
 
     echo "Starting and securing MariaDB..." | tee -a install.log
     sudo systemctl start mariadb || { echo "Failed to start MariaDB" | tee -a install.log; exit 1; }
@@ -66,8 +64,8 @@ EOF
     fi
 
     echo "Configuring PHP Opcache and upload settings..." | tee -a install.log
-    sudo mkdir -p /etc/php/8.1/apache2/conf.d
-    sudo bash -c 'cat > /etc/php/8.1/apache2/conf.d/10-opcache.ini <<EOF
+    sudo mkdir -p /etc/php/8.3/apache2/conf.d
+    sudo bash -c 'cat > /etc/php/8.3/apache2/conf.d/10-opcache.ini <<EOF
 zend_extension=opcache.so
 opcache.enable=1
 opcache.enable_cli=1
@@ -78,7 +76,7 @@ opcache.revalidate_freq=1
 opcache.save_comments=1
 EOF'
 
-    sudo bash -c 'cat > /etc/php/8.1/apache2/conf.d/20-upload.ini <<EOF
+    sudo bash -c 'cat > /etc/php/8.3/apache2/conf.d/20-upload.ini <<EOF
 upload_max_filesize=5G
 post_max_size=5G
 memory_limit=512M
@@ -106,7 +104,7 @@ EOF'
     sudo chown -R www-data:www-data /var/www/nextcloud
     sudo chmod -R 755 /var/www/nextcloud
 
-    echo "Configuring Apache for Nextcloud..." | tee -a install.log
+    echo "Configuring Apache for Nextcloud with HTTPS redirection..." | tee -a install.log
     sudo bash -c "cat > /etc/apache2/sites-available/nextcloud.conf <<EOF
 <VirtualHost *:80>
     ServerAdmin admin@${SUBDOMAIN}
@@ -124,6 +122,10 @@ EOF'
         </IfModule>
     </Directory>
 
+    RewriteEngine on
+    RewriteCond %{SERVER_NAME} =${SUBDOMAIN}
+    RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
+
     ErrorLog \${APACHE_LOG_DIR}/error.log
     CustomLog \${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
@@ -139,8 +141,19 @@ EOF"
     echo "Running Nextcloud CLI installer..." | tee -a install.log
     sudo -u www-data php /var/www/nextcloud/occ maintenance:install --database "mysql" --database-name "${DB_NAME}" --database-user "${MARIADB_USER}" --database-pass "${MARIADB_PASSWORD}" --admin-user "admin" --admin-pass "admin-password" --data-dir="${DATA_DIR}" || { echo "Nextcloud CLI installation failed" | tee -a install.log; exit 1; }
 
+    # Set trusted domains to resolve the admin error
+    echo "Configuring trusted domains..." | tee -a install.log
+    sudo -u www-data php /var/www/nextcloud/occ config:system:set trusted_domains 0 --value=${SUBDOMAIN}
+
     echo "Nextcloud installation completed successfully!" | tee -a install.log
 }
+
+# Display admin login info at the end of the installation
+echo -e "\033[0;31m============================================\033[0m" | tee -a install.log
+echo -e "\033[0;31mAdmin Login Information:\033[0m" | tee -a install.log
+echo -e "\033[0;31mUsername: admin\033[0m" | tee -a install.log
+echo -e "\033[0;31mPassword: admin-password\033[0m" | tee -a install.log
+echo -e "\033[0;31m============================================\033[0m" | tee -a install.log
 
 # Run the script functions
 get_user_input
